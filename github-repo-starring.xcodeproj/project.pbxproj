@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		56082481EB074ABFA6B17BEE /* libPods-github-repo-starringTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C162AE1AB9ED4995B090E11B /* libPods-github-repo-starringTests.a */; };
+		629273BA1BECF5D90083D266 /* FISConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 629273B91BECF5D90083D266 /* FISConstants.m */; settings = {ASSET_TAGS = (); }; };
 		8F22EA0779774795A9381EE9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D9386AE5B2144E1AAB0E871 /* libPods.a */; };
 		D82DB6C01921613300FA0E08 /* not_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = D82DB6BF1921613300FA0E08 /* not_starred.json */; };
 		D82DB6C11921613300FA0E08 /* not_starred.json in Resources */ = {isa = PBXBuildFile; fileRef = D82DB6BF1921613300FA0E08 /* not_starred.json */; };
@@ -34,7 +35,6 @@
 		D871ACEB19210DE60029CCC8 /* FISReposTableViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D871ACE719210DE60029CCC8 /* FISReposTableViewControllerSpec.m */; };
 		D871ACED19210DF40029CCC8 /* repositories.json in Resources */ = {isa = PBXBuildFile; fileRef = D871ACEC19210DF40029CCC8 /* repositories.json */; };
 		D871ACEE19210DF40029CCC8 /* repositories.json in Resources */ = {isa = PBXBuildFile; fileRef = D871ACEC19210DF40029CCC8 /* repositories.json */; };
-		E2877F561BE80E4B007BD10E /* FISConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E2877F551BE80E4B007BD10E /* FISConstants.m */; settings = {ASSET_TAGS = (); }; };
 		E2877F581BE80F00007BD10E /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2877F571BE80F00007BD10E /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -53,6 +53,7 @@
 		1B42B1EA514CCCC630B7BE45 /* Pods-github-repo-starringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-github-repo-starringTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-github-repo-starringTests/Pods-github-repo-starringTests.debug.xcconfig"; sourceTree = "<group>"; };
 		1D9386AE5B2144E1AAB0E871 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF39F77274B80199B3AF42A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		629273B91BECF5D90083D266 /* FISConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISConstants.m; sourceTree = "<group>"; };
 		C162AE1AB9ED4995B090E11B /* libPods-github-repo-starringTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-github-repo-starringTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF36B816E62BC0EEEEE9F351 /* Pods-github-repo-starringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-github-repo-starringTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-github-repo-starringTests/Pods-github-repo-starringTests.release.xcconfig"; sourceTree = "<group>"; };
 		D82DB6BF1921613300FA0E08 /* not_starred.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = not_starred.json; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		D871ACE619210DE60029CCC8 /* FISGithubAPIClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISGithubAPIClientSpec.m; sourceTree = "<group>"; };
 		D871ACE719210DE60029CCC8 /* FISReposTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISReposTableViewControllerSpec.m; sourceTree = "<group>"; };
 		D871ACEC19210DF40029CCC8 /* repositories.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repositories.json; sourceTree = "<group>"; };
-		E2877F551BE80E4B007BD10E /* FISConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FISConstants.m; sourceTree = "<group>"; };
 		E2877F571BE80F00007BD10E /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,7 +157,7 @@
 				D871ACD319210D970029CCC8 /* FISReposTableViewController.h */,
 				D871ACD419210D970029CCC8 /* FISReposTableViewController.m */,
 				D871ACD519210D970029CCC8 /* FISConstants.h */,
-				E2877F551BE80E4B007BD10E /* FISConstants.m */,
+				629273B91BECF5D90083D266 /* FISConstants.m */,
 				D871ACD719210D970029CCC8 /* FISGithubAPIClient.h */,
 				D871ACD819210D970029CCC8 /* FISGithubAPIClient.m */,
 				D871ACD919210D970029CCC8 /* FISReposDataStore.h */,
@@ -423,7 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2877F561BE80E4B007BD10E /* FISConstants.m in Sources */,
+				629273BA1BECF5D90083D266 /* FISConstants.m in Sources */,
 				D871ACB519210D190029CCC8 /* FISViewController.m in Sources */,
 				D871ACDE19210D970029CCC8 /* FISReposDataStore.m in Sources */,
 				D871ACAB19210D190029CCC8 /* main.m in Sources */,
