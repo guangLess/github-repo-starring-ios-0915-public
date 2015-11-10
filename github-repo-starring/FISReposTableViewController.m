@@ -9,6 +9,7 @@
 #import "FISReposTableViewController.h"
 #import "FISReposDataStore.h"
 #import "FISGithubRepository.h"
+#import "FISGithubAPIClient.h"
 
 @interface FISReposTableViewController ()
 @property (strong, nonatomic) FISReposDataStore *dataStore;
@@ -79,27 +80,35 @@
     FISGithubRepository * pickedRepo = self.dataStore.repositories[indexPath.row];
     
     [FISReposDataStore checkEachRepo:pickedRepo.fullName withBlock:^(BOOL checkRepo) {
-        if (checkRepo == YES) {
-            [self alertViewActiveWithStartMessage:@"unStared"];
-        } else {
-            [self alertViewActiveWithStartMessage:@"stared, becasue it was not starred"];
+        if (checkRepo == YES){
+            [FISGithubAPIClient starsOrDeleteARepoFrom:pickedRepo.fullName withApiAction:@"DELETE" inAcompletionBlock:^ (NSUInteger statusCode)
+            {
+                if (statusCode == 204 ){
+                [self alertViewActiveWithStartMessage:@"unStared this Repo"];
+                }
+            }];
+        }
+        
+        if (checkRepo == NO){
+            [FISGithubAPIClient starsOrDeleteARepoFrom:pickedRepo.fullName withApiAction:@"PUT"  inAcompletionBlock:^ (NSUInteger statusCode)
+            {
+                if (statusCode == 204 ){
+                [self alertViewActiveWithStartMessage:@"Stared this Repo"];
+                }
+            }];
         }
     }];
-    
-    [FISReposDataStore interactWithRepo:self.dataStore.repositories[indexPath.row]];
-    // grab repo that was tapped
-    // check if starred using selectedRepo.fullName
-    // in completion, if starred -> unstar ; if not starred -> star
-    // in completion, present alert controller 
     
     NSLog(@"HELLO you select me");
 }
 
 -(void)alertViewActiveWithStartMessage: (NSString *)starMessage{
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:starMessage message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:starMessage message:@"" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }];
 }
 
 @end

@@ -29,6 +29,7 @@
     }
     return self;
 }
+
 -(void)getRepositoriesWithCompletion:(void (^)(BOOL))completionBlock
 {
     [FISGithubAPIClient getRepositoriesWithCompletion:^(NSArray *repoDictionaries) {
@@ -41,12 +42,10 @@
 
 +(void)checkEachRepo: (NSString *)fullName withBlock:(void(^)(BOOL checkRepo))completionBlock{//block
     
-   // BOOL checRepo;
     [FISGithubAPIClient checkIfStarred:fullName checkFullNameWithBlock:^(BOOL starredBlock)
      {
          completionBlock(starredBlock);
           if (starredBlock == YES) {
-             
              NSLog(@"%@, is starred",fullName);
          }else {
              NSLog(@"%@, is not stared",fullName);
@@ -54,32 +53,22 @@
      }];
 }
 
-//-(void)starredCheck // maybe not a useful method
+
+
+//+(void)interactWithRepo: (FISGithubRepository *)repo
 //{
-//    for (FISGithubRepository * eachRepo in self.repositories) {
-//        NSString * fullName = eachRepo.fullName;
-//        [FISGithubAPIClient checkIfStarred:fullName checkFullNameWithBlock:^(BOOL starredBlock)
-//         {
-//             BOOL check = starredBlock;
-//             
-//             if (check) {
-//                 NSLog(@"%@, is starred",fullName);
-//             }else {
-//                 NSLog(@"%@, is not stared",fullName);
-//             }
-//         }];
-//    }
+//    
+//    [FISGithubAPIClient checkIfStarred:repo.fullName checkFullNameWithBlock:^(BOOL starredBlock) {
+//        if (starredBlock == YES)
+//        {
+//            [FISGithubAPIClient starsOrDeleteARepoFrom:repo.fullName withApiAction:@"DELETE"];
+//        } if (starredBlock == NO)
+//        {
+//            [FISGithubAPIClient starsOrDeleteARepoFrom:repo.fullName withApiAction:@"PUT"];
+//        }
+//    }];
 //}
 
-+(void)interactWithRepo: (FISGithubRepository *)repo
-{
-    [FISGithubAPIClient checkIfStarred:repo.fullName checkFullNameWithBlock:^(BOOL starredBlock) {
-        if (starredBlock == YES) {
-            [FISGithubAPIClient starsOrDeleteARepoFrom:repo.fullName withApiAction:@"DELETE"];
-        } else {
-            [FISGithubAPIClient starsOrDeleteARepoFrom:repo.fullName withApiAction:@"PUT"];
-        }
-    }];
-}
+
 
 @end

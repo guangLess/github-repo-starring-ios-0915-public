@@ -13,9 +13,10 @@
 
 @property (strong, nonatomic) NSMutableArray *repositories;
 
-+ (instancetype)sharedDataStore;
++(instancetype)sharedDataStore;
 
-- (void)getRepositoriesWithCompletion:(void (^)(BOOL success))completionBlock;
+-(void)getRepositoriesWithCompletion:(void (^)(BOOL success))completionBlock;
+
 +(void)interactWithRepo:(FISGithubRepository *)repo;
 +(void)checkEachRepo: (NSString *)fullName withBlock:(void(^)(BOOL checkRepo))completionBlock;
 

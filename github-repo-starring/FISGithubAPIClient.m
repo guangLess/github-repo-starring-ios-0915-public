@@ -26,38 +26,34 @@ NSString *const GITHUB_API_URL=@"https://api.github.com";
 }
 
 +(void)checkIfStarred:(NSString *)fullname checkFullNameWithBlock:(void(^) (BOOL))starredBlock{
-    
-  //https://api.github.com/user/starred/manastech/crystal/?client_id=9b303ed1a75fb0052bb9&client_secret=51977e30b4a5a85782428540f80691f772ad44d4&access_token=6d1561ec084fb38d1c0c9fb6cf89ed9f585bfca0
-    
-    NSString * starRequest = [NSString stringWithFormat:@"%@/user/starred/%@/?client_id=%@&client_secret=%@&access_token=%@",GITHUB_API_URL,fullname,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_ACCESS_TOKEN];
+
+    //__block NSString * x = @"";
+    NSString * starRequest = [NSString stringWithFormat:@"%@/user/starred/%@?client_id=%@&client_secret=%@&access_token=%@",GITHUB_API_URL,fullname,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_ACCESS_TOKEN];
     
     NSURL * startURL = [NSURL URLWithString:starRequest];
     NSURLRequest * request = [NSURLRequest requestWithURL:startURL];
     NSURLSession * urlSession = [NSURLSession sharedSession];
 
     NSURLSessionDataTask * task = [ urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        // response.statusCode
-        //response.
-        
+
         NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
         
-        if (httpResponse.statusCode == 202){
+        if (httpResponse.statusCode == 204){
+            NSLog(@"repos already stared");
             starredBlock(YES);
-            
+        
         } if (httpResponse.statusCode == 404) {
+            NSLog(@"repos not YET stared");
             starredBlock(NO);
         }
     }];
     
     [task resume];
-    
 }
 
-+(void)starsOrDeleteARepoFrom:(NSString *)fullname withApiAction:(NSString *)apiAction{
-    
-    //NSString * starString = @"https://api.github.com/user/starred/processing/processing?client_id=9b303ed1a75fb0052bb9&client_secret=51977e30b4a5a85782428540f80691f772ad44d4&access_token=6d1561ec084fb38d1c0c9fb6cf89ed9f585bfca0";
-    
-    NSString * starString = [NSString stringWithFormat:@"%@/user/starred/%@/?client_id=%@&client_secret=%@&access_token=%@",GITHUB_API_URL,fullname,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_ACCESS_TOKEN];
++(void)starsOrDeleteARepoFrom:(NSString *)fullname withApiAction:(NSString *)apiAction inAcompletionBlock:(void (^) (NSUInteger)) statusCode{
+
+    NSString * starString = [NSString stringWithFormat:@"%@/user/starred/%@?client_id=%@&client_secret=%@&access_token=%@",GITHUB_API_URL,fullname,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_ACCESS_TOKEN];
     
     NSURL * startURL = [NSURL URLWithString:starString];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL: startURL];
@@ -71,6 +67,8 @@ NSString *const GITHUB_API_URL=@"https://api.github.com";
         NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
         NSString * dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"Check for stars. status code is %lu; JSON :%@", httpResponse.statusCode, dataString);
+
+        statusCode(httpResponse.statusCode);
     }];
     
     [starTask resume];

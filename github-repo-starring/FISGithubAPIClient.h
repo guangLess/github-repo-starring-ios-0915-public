@@ -11,17 +11,10 @@
 NSString *const GITHUB_API_URL;
 @interface FISGithubAPIClient : NSObject
 
-///---------------------
-/// @name Class Methods
-///---------------------
 
-/**
- *  Does a `GET` request to the [Github repository API](https://developer.github.com/v3/repos/#list-all-public-repositories) with the `client_id` and `client_secret` parameters as well.
- *  @param completionBlock Block to be called when finished retreiving from the API. Passes an `NSArray` of `NSDictionary` objects from the API.
- */
 
 +(void)getRepositoriesWithCompletion:(void (^)(NSArray *repoDictionaries))completionBlock;
-+(void)checkIfStarred:(NSString *)fullname checkFullNameWithBlock:(void(^) (BOOL))starredBlock;
-+(void)starsOrDeleteARepoFrom:(NSString *)fullname withApiAction:(NSString *)apiAction;
++(void)checkIfStarred:(NSString *)fullname checkFullNameWithBlock:(void(^) (BOOL))starredBlock; // do the starOrDeleteApo
++(void)starsOrDeleteARepoFrom:(NSString *)fullname withApiAction:(NSString *)apiAction inAcompletionBlock:(void (^) (NSUInteger)) statusCode;
 
 @end
