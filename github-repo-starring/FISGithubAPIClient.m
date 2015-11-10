@@ -31,16 +31,26 @@ NSString *const GITHUB_API_URL=@"https://api.github.com";
     
     NSString * starRequest = [NSString stringWithFormat:@"%@/user/starred/%@/?client_id=%@&client_secret=%@&access_token=%@",GITHUB_API_URL,fullname,GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET,GITHUB_ACCESS_TOKEN];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    [manager GET:starRequest parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
-    {
-        if (responseObject) {
-        starredBlock(YES);
+    NSURL * startURL = [NSURL URLWithString:starRequest];
+    NSURLRequest * request = [NSURLRequest requestWithURL:startURL];
+    NSURLSession * urlSession = [NSURLSession sharedSession];
+
+    NSURLSessionDataTask * task = [ urlSession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        // response.statusCode
+        //response.
+        
+        NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
+        
+        if (httpResponse.statusCode == 202){
+            starredBlock(YES);
+            
+        } if (httpResponse.statusCode == 404) {
+            starredBlock(NO);
         }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        starredBlock(NO);
-        NSLog(@"Fail: %@",error.localizedDescription);
     }];
+    
+    [task resume];
+    
 }
 
 +(void)starsOrDeleteARepoFrom:(NSString *)fullname withApiAction:(NSString *)apiAction{
